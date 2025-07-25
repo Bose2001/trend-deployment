@@ -2,15 +2,15 @@ pipeline {
   agent any
 
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub')  
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub') 
   }
 
-  stage('Clone Repository') {
-  steps {
-    git branch: 'main', url: 'https://github.com/Bose2001/trend-deployment.git'
-  }
-}
-
+  stages {
+    stage('Clone Repository') {
+      steps {
+        git branch: 'main', url: 'https://github.com/Bose2001/trend-deployment.git'
+      }
+    }
 
     stage('Build Docker Image') {
       steps {
@@ -37,6 +37,5 @@ pipeline {
     }
   }
 }
-
 
 
