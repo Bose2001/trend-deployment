@@ -31,10 +31,13 @@ pipeline {
     }
 
     stage('Configure Kubeconfig') {
-      steps {
-        sh 'aws eks --region us-east-1 update-kubeconfig --name trend-cluster'
-      }
+  steps {
+    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
+      sh 'aws eks --region us-east-1 update-kubeconfig --name trend-cluster'
     }
+  }
+}
+
 
     stage('Deploy to Kubernetes') {
       steps {
