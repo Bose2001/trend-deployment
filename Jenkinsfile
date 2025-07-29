@@ -2,13 +2,13 @@ pipeline {
   agent any
 
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub') 
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
   }
 
   stages {
     stage('Clone Repository') {
       steps {
-        git branch: 'main', url: 'https://github.com/Bose2001/trend-deployment.git'
+        git 'https://github.com/Bose2001/trend-deployment.git'
       }
     }
 
@@ -29,13 +29,19 @@ pipeline {
       }
     }
 
+    stage('Configure Kubeconfig') {
+      steps {
+        sh 'aws eks --region us-east-1 update-kubeconfig --name trend-cluster'
+      }
+    }
+
     stage('Deploy to Kubernetes') {
       steps {
-        sh 'kubectl apply -f deployment.yaml'
-        sh 'kubectl apply -f service.yaml'
+        sh '''
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
+        '''
       }
     }
   }
 }
-
-
