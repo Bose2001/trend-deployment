@@ -50,5 +50,14 @@ pipeline {
     }
   }
 
+    stage('Expose Service') {
+      steps {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials']]) {
+        sh 'kubectl apply -f service.yaml'
+      }
+   }
+  }
+
+
   }
 }
