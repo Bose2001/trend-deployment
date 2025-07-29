@@ -8,9 +8,10 @@ pipeline {
   stages {
     stage('Clone Repository') {
       steps {
-        git 'https://github.com/Bose2001/trend-deployment.git'
+        git branch: 'main', url: 'https://github.com/Bose2001/trend-deployment.git'
       }
     }
+
 
     stage('Build Docker Image') {
       steps {
