@@ -18,5 +18,4 @@ spec:
         - name: trend
           image: bose25/trend-react
           ports:
-            - containerPort: 3000
-
+            - containerPort: 80
