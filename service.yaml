@@ -4,7 +4,7 @@ metadata:
   name: trend-app
 spec:
   selector:
-    app: trend-app
+    app: trend
   ports:
     - protocol: TCP
       port: 80
